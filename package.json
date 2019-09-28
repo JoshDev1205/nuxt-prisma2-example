@@ -8,10 +8,14 @@
   ],
   "scripts": {
     "dev": "lerna run dev --stream",
-    "start": "lerna run start --stream"
+    "start": "lerna run start --stream",
+    "lint": "lerna run lint --stream"
   },
   "dependencies": {
     "dotenv-extended": "^2.4.0",
     "lerna": "^3.16.4"
+  },
+  "devDependencies": {
+    "eslint": "^5"
   }
 }
