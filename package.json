@@ -6,7 +6,10 @@
   "workspaces": [
     "packages/*"
   ],
-  "scripts": {},
+  "scripts": {
+    "dev": "lerna run dev --stream",
+    "start": "lerna run start --stream"
+  },
   "dependencies": {
     "dotenv-extended": "^2.4.0",
     "lerna": "^3.16.4"
