@@ -1,0 +1,13 @@
+{
+  "name": "nuxt-prisma2-example",
+  "description": "Nuxt.js / Prisma2 Boilerplate",
+  "author": "Pascal Martineau <pascal@lewebsimple.ca>",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {},
+  "dependencies": {
+    "lerna": "^3.16.4"
+  }
+}

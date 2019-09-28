@@ -1,0 +1,8 @@
+.env
+.idea
+.nuxt
+dist
+generated
+node_modules
+*.log
+yarn.lock
