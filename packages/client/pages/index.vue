@@ -6,11 +6,13 @@
 </template>
 
 <script>
+import hello from '@/apollo/queries/hello.gql';
+
 export default {
-  asyncData (_context) {
-    return {
-      hello: 'Hello World',
-    };
+  apollo: {
+    hello: {
+      query: hello,
+    },
   },
 };
 </script>
