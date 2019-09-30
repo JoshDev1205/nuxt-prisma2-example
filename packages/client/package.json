@@ -1,0 +1,22 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "author": "Pascal Martineau <pascal@lewebsimple.ca>",
+  "private": true,
+  "scripts": {
+    "env": "dotenv-extended --path=../../.env --defaults=../../.env.defaults --schema=../../.env.schema --errorOnMissing=true --errorOnRegex=true",
+    "dev": "yarn env nuxt-ts",
+    "build": "yarn env nuxt-ts build",
+    "prestart": "yarn build",
+    "start": "yarn env nuxt-ts start",
+    "lint": "eslint --ext .ts,.js,.vue --ignore-path ../../.gitignore --fix ."
+  },
+  "dependencies": {
+    "@nuxt/typescript-runtime": "^0.1.7",
+    "nuxt": "^2.9.2"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^0.2.10",
+    "@nuxtjs/eslint-config-typescript": "^0.1.3"
+  }
+}
