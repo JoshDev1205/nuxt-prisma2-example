@@ -9,17 +9,53 @@
       "cwd": "${workspaceRoot}/packages/client",
       "envFile": "${workspaceFolder}/.env",
       "sourceMaps": true,
-      "sourceMapPathOverrides": { "webpack:///*": "${workspaceFolder}/packages/client/*" }
+      "sourceMapPathOverrides": {
+        "webpack:///*": "${workspaceFolder}/packages/client/*"
+      }
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Nuxt (Chrome)",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/packages/client",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:///*": "${workspaceFolder}/packages/client/*"
+      }
     },
     {
       "type": "node",
       "request": "launch",
       "name": "Server",
-      "args": ["${workspaceFolder}/packages/server/src/index.ts"],
-      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "args": [
+        "${workspaceFolder}/packages/server/src/index.ts"
+      ],
+      "runtimeArgs": [
+        "--nolazy",
+        "-r",
+        "ts-node/register"
+      ],
       "cwd": "${workspaceRoot}/packages/server",
       "envFile": "${workspaceFolder}/.env",
       "sourceMaps": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Client",
+      "configurations": [
+        "Nuxt (SSR)",
+        "Nuxt (Chrome)"
+      ]
+    },
+    {
+      "name": "Client & Server",
+      "configurations": [
+        "Nuxt (SSR)",
+        "Nuxt (Chrome)",
+        "Server"
+      ]
     }
   ]
 }
