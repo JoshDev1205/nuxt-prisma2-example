@@ -1,11 +1,17 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { schema } from './schema';
 import { ApolloContext } from './types';
+import { Photon } from '@generated/photon';
+
+// Prisma2 Photon client
+export const photon = new Photon;
 
 // GraphQL Server
 const server = new GraphQLServer({
   schema,
-  context: (): ApolloContext => ({}),
+  context: (): ApolloContext => ({
+    photon,
+  }),
 });
 
 // Start Listening

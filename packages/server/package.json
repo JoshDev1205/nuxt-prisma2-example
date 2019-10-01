@@ -7,17 +7,20 @@
     "env": "dotenv-extended --path=../../.env --defaults=../../.env.defaults --schema=../../.env.schema --errorOnMissing=true --errorOnRegex=true",
     "dev": "yarn env ts-node-dev --no-notify --transpileOnly src/index.ts",
     "start": "yarn env ts-node --transpile-only src/index.ts",
-    "lint": "eslint --ext .ts,.js --ignore-path ../../.gitignore --fix ."
+    "lint": "eslint --ext .ts,.js --ignore-path ../../.gitignore --fix .",
+    "generate": "yarn env prisma2 generate",
+    "lift": "yarn env prisma2 lift"
   },
   "dependencies": {
     "graphql": "^14.5.8",
     "graphql-yoga": "^1.18.3",
-    "nexus": "^0.11.7"
+    "nexus": "^0.12.0-beta.9"
   },
   "devDependencies": {
     "@types/node": "^10",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
+    "prisma2": "^2.0.0-preview-13.2",
     "ts-node-dev": "^1.0.0-pre.43",
     "typescript": "^3.6.3"
   }

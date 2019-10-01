@@ -1,0 +1,18 @@
+datasource db {
+  provider = "mysql"
+  url      = env("PRISMA2_MYSQL_URL")
+  default  = true
+}
+
+generator photonjs {
+  provider = "photonjs"
+}
+
+generator nexus_prisma {
+  provider = "nexus-prisma"
+}
+
+model User {
+  id    String @default(cuid()) @id
+  email String @unique
+}

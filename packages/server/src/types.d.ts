@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
+import { Photon } from '@generated/photon';
 
 export interface ApolloContext {
+  photon: Photon;
 }

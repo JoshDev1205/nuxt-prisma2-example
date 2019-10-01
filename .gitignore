@@ -3,6 +3,7 @@
 .nuxt
 dist
 generated
+migrations
 node_modules
 *.log
 yarn.lock
