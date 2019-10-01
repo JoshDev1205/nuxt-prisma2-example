@@ -11,7 +11,9 @@ export const FooSubscription = subscriptionField('foo', {
   resolve(payload) { return payload; },
 });
 
-// Trigger Foo event every 2000ms
+// Trigger Foo event every 1000ms
+let fooCounter = 0;
 setInterval(() => {
-  pubsub.publish(fooTrigger, 'Hey');
-}, 2000);
+  fooCounter = (fooCounter + 1) % 4;
+  pubsub.publish(fooTrigger, `Foo ${fooCounter}`);
+}, 1000);
