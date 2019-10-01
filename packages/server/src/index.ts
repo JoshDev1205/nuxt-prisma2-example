@@ -1,19 +1,12 @@
 import { GraphQLServer } from 'graphql-yoga';
-
-// GraphQL Schema
-const typeDefs = `
-  type Query {
-    hello(name: String): String!
-  }
-`;
-const resolvers = {
-  Query: {
-    hello: (): string => `Hello World`,
-  },
-};
+import { schema } from './schema';
+import { ApolloContext } from './types';
 
 // GraphQL Server
-const server = new GraphQLServer({ typeDefs, resolvers });
+const server = new GraphQLServer({
+  schema,
+  context: (): ApolloContext => ({}),
+});
 
 // Start Listening
 const serverOptions = {
