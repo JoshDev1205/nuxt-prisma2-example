@@ -3,6 +3,7 @@ import { schema } from './schema';
 import { ApolloContext } from './types';
 import { Photon } from '@generated/photon';
 import { PubSub } from 'graphql-subscriptions';
+import { router as authRouter } from './auth';
 import proxy from 'http-proxy-middleware';
 
 // Prisma2 Photon client
@@ -19,6 +20,9 @@ const server = new GraphQLServer({
     pubsub,
   }),
 });
+
+// Authentication Router
+server.express.use(authRouter);
 
 // Nuxt Proxy
 const nuxtPort = process.env.NUXT_PORT || 3000;
