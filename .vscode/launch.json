@@ -37,6 +37,9 @@
         "ts-node/register"
       ],
       "cwd": "${workspaceRoot}/packages/server",
+      "env": {
+        "TS_NODE_TRANSPILE_ONLY": true
+      },
       "envFile": "${workspaceFolder}/.env",
       "sourceMaps": true
     }
