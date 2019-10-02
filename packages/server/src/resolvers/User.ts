@@ -26,5 +26,4 @@ export const UserMutation = extendType({
     t.crud.updateOneUser();
     t.crud.upsertOneUser();
   },
-})
-  ;
+});

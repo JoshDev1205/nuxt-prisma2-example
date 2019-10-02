@@ -40,3 +40,9 @@ router.use('/auth/logout', (req, res) => {
   req.logout();
   updateAuthCookie(req, res, () => res.redirect('/'));
 });
+
+// TODO: Login Route
+router.use('/auth/login', (req, res) => {
+  req.login({ id: 'test', email: 'pascal@lewebsimple.ca' }, { session: false }, () => { });
+  updateAuthCookie(req, res, () => res.redirect('/'));
+});

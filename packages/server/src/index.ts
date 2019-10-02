@@ -1,5 +1,6 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { schema } from './schema';
+import { permissions } from "./shield/permissions";
 import { ApolloContext } from './types';
 import { Photon } from '@generated/photon';
 import { PubSub } from 'graphql-subscriptions';
@@ -17,6 +18,7 @@ export const pubsub = new PubSub;
 // GraphQL Server
 const server = new GraphQLServer({
   schema,
+  middlewares: [permissions],
   context: ({ request, connection }): ApolloContext => {
     let user = null;
     if (request) {
