@@ -6,6 +6,6 @@ import { authLogoutPath, updateAuthCookie } from "./utils";
 export function applyMiddleware(router: Router): void {
   router.use(authLogoutPath, (req, res) => {
     req.logout();
-    updateAuthCookie(req, res, () => res.redirect('/'));
+    updateAuthCookie(req, res, () => res.json({ message: 'Logout successful' }));
   });
 }
