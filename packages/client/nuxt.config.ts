@@ -10,8 +10,8 @@ const config: Configuration = {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: `http://localhost:${serverPort}`,
-        wsEndpoint: `ws://localhost:${serverPort}`,
+        httpEndpoint: `http://localhost:${serverPort}/graphql`,
+        wsEndpoint: `ws://localhost:${serverPort}/graphql`,
       },
     },
   },
