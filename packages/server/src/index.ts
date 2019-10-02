@@ -5,6 +5,8 @@ import { Photon } from '@generated/photon';
 import { PubSub } from 'graphql-subscriptions';
 import { router as authRouter } from './auth';
 import proxy from 'http-proxy-middleware';
+import { getUserFromCookie } from './auth/utils';
+import { ConnectionParams, ConnectionContext } from 'subscriptions-transport-ws';
 
 // Prisma2 Photon client
 export const photon = new Photon;
@@ -15,10 +17,19 @@ export const pubsub = new PubSub;
 // GraphQL Server
 const server = new GraphQLServer({
   schema,
-  context: (): ApolloContext => ({
-    photon,
-    pubsub,
-  }),
+  context: ({ request, connection }): ApolloContext => {
+    let user = null;
+    if (request) {
+      user = getUserFromCookie(request.headers.cookie || '');
+    } else if (connection) {
+      user = connection.context.user || null;
+    }
+    return {
+      photon,
+      pubsub,
+      user,
+    };
+  },
 });
 
 // Authentication Router
@@ -41,6 +52,14 @@ server.start({
   playground: '/graphql',
   subscriptions: {
     path: '/graphql',
+    onConnect: (_connectionParams: ConnectionParams, _webSocket: WebSocket, { request }: ConnectionContext): ApolloContext => {
+      const user = getUserFromCookie(request.headers.cookie || '');
+      return {
+        photon,
+        pubsub,
+        user,
+      };
+    },
   },
 }, () => {
   console.log(`ℹ Listening on http://localhost:${serverPort}/graphql`);
