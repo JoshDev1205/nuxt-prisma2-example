@@ -1,3 +1,4 @@
+import { Request, Response, NextFunction } from 'express';
 import { sign, verify } from 'jsonwebtoken';
 import { parse } from 'cookie';
 
@@ -5,6 +6,10 @@ export const authCookieName = process.env.AUTH_COOKIE_NAME || 'nuxt-prisma2-auth
 export const authCookieMaxAge = process.env.AUTH_COOKIE_MAX_AGE || '86400000';
 export const authJwtExpires = process.env.AUTH_JWT_EXPIRES || '1d';
 export const authJwtSecret = process.env.AUTH_JWT_SECRET || 'nuxt-prisma2-secret';
+
+export const authJwtPath = /^\/(?!_|favicon.ico).*/;
+export const authLoginPath = '/auth/login';
+export const authLogoutPath = '/auth/logout';
 
 // Decode JWT
 export function decodeJwt(token: string): Express.User | null {
@@ -27,4 +32,18 @@ export function getUserFromCookie(cookie: string): Express.User | null {
     return null;
   }
   return decodeJwt(token);
+}
+
+// Update authentication cookie from req.user
+export function updateAuthCookie(req: Request, res: Response, next: NextFunction): void {
+  if (req.user) {
+    const token = encodeJwt(req.user);
+    res.cookie(authCookieName, token, {
+      httpOnly: true,
+      maxAge: parseInt(authCookieMaxAge),
+    });
+  } else {
+    res.clearCookie(authCookieName);
+  }
+  next();
 }
