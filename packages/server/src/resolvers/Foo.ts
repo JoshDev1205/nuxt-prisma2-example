@@ -6,7 +6,7 @@ export const fooTrigger = 'FOO';
 export const FooSubscription = subscriptionField('foo', {
   type: 'String',
   subscribe(_root, _args, { pubsub }) {
-    return pubsub.asyncIterator<string>(fooTrigger);
+    return pubsub.asyncIterator(fooTrigger);
   },
   resolve(payload) { return payload; },
 });
