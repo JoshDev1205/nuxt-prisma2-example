@@ -3,6 +3,7 @@ import passport from 'passport';
 import * as jwt from './Jwt';
 import * as login from './Login';
 import * as logout from './Logout';
+import { updateAuthCookie } from './utils';
 
 // Authentication Router
 export const router = Router();
@@ -17,3 +18,9 @@ passport.use('login', login.strategy);
 jwt.applyMiddleware(router);
 login.applyMiddleware(router);
 logout.applyMiddleware(router);
+
+// Fake login route
+router.use('/auth/fakelogin', (req, res) => {
+  req.login({ id: 'test', email: 'pascal@lewebsimple.ca' }, { session: false }, () => { });
+  updateAuthCookie(req, res, () => res.redirect('/'));
+});

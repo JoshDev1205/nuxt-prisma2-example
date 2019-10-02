@@ -6,6 +6,7 @@ const serverPort = process.env.SERVER_PORT || 4000;
 const config: Configuration = {
   modules: [
     '@nuxtjs/apollo',
+    '@nuxtjs/axios',
   ],
   apollo: {
     clientConfigs: {
@@ -14,6 +15,9 @@ const config: Configuration = {
         wsEndpoint: `ws://localhost:${serverPort}/graphql`,
       },
     },
+  },
+  axios: {
+    baseURL: `http://localhost:${serverPort}`,
   },
   server: {
     port: nuxtPort,
