@@ -14,7 +14,7 @@ export const strategy = new Strategy({ usernameField: 'email' }, async (email, p
       return done(null, false, { message: 'User email not found' });
     }
     // Validate password
-    const valid = await compare(password, user.password);
+    const valid = await compare(password, user.password || '');
     if (!valid) {
       return done(null, false, { message: 'Invalid password' });
     }
