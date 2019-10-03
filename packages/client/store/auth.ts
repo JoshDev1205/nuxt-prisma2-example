@@ -1,6 +1,7 @@
 import { ActionTree, MutationTree } from 'vuex';
-import { getUserFromCookie } from '../../server/src/auth/utils';
+import { authLoginPath, authLogoutPath, getUserFromCookie } from '../../server/src/auth/utils';
 import { RootState } from './index';
+import '@nuxtjs/axios/types/vuex';
 
 export interface AuthState {
   user: Express.User | null;
@@ -20,5 +21,14 @@ export const actions: ActionTree<AuthState, RootState> = {
   init ({ commit }, { req }) {
     const user = getUserFromCookie(req.headers.cookie || '');
     commit('SET_USER', user);
+  },
+  login (_store, { email, password }) {
+    return this.$axios.post(authLoginPath, { email, password });
+  },
+  logout ({ commit }) {
+    return this.$axios.post(authLogoutPath)
+      .then(() => {
+        commit('SET_USER', null);
+      });
   },
 };

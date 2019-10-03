@@ -27,9 +27,6 @@
       "@nuxt/types"
     ]
   },
-  "exclude": [
-    "node_modules"
-  ],
   "include": [
     "../server/src/types.d.ts"
   ]

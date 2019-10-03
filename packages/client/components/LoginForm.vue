@@ -1,8 +1,10 @@
 <template>
   <form name="login" @submit.prevent="login">
-    <input type="email" placeholder="Email" v-model="form.email" />
-    <input type="password" placeholder="Password" v-model="form.password" />
-    <button type="submit">Login</button>
+    <input v-model="form.email" type="email" placeholder="Email">
+    <input v-model="form.password" type="password" placeholder="Password">
+    <button type="submit">
+      Login
+    </button>
   </form>
 </template>
 
@@ -10,22 +12,17 @@
 export default {
   data: () => ({
     form: {
-      email: "",
-      password: ""
-    }
+      email: '',
+      password: '',
+    },
   }),
   methods: {
-    login() {
-      this.$axios
-        .$post("/auth/login", {
-          email: this.form.email,
-          password: this.form.password
-        })
-        .then(response => {
-          console.log(response);
-        })
+    login () {
+      this.$store
+        .dispatch('auth/login', this.form)
+        .then(() => this.$router.push('/'))
         .catch(error => console.error(error));
-    }
-  }
+    },
+  },
 };
 </script>
