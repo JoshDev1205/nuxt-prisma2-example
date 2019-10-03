@@ -1,3 +1,7 @@
 // Bulma / Buefy
 @import "~bulma/bulma";
 @import "~buefy/src/scss/buefy";
+
+// Material Design Icons
+$mdi-font-path: "~@mdi/font/fonts";
+@import "~@mdi/font/scss/materialdesignicons";
