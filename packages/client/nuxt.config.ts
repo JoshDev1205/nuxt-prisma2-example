@@ -4,10 +4,15 @@ const nuxtPort = process.env.NUXT_PORT || 3000;
 const serverPort = process.env.SERVER_PORT || 4000;
 
 const config: Configuration = {
+
+  // Nuxt modules
   modules: [
     '@nuxtjs/apollo',
     '@nuxtjs/axios',
+    '@nuxtjs/style-resources',
   ],
+
+  // Apollo configuration
   apollo: {
     clientConfigs: {
       default: {
@@ -16,12 +21,33 @@ const config: Configuration = {
       },
     },
   },
+
+  // Axios configuration
   axios: {
     baseURL: `http://localhost:${serverPort}`,
   },
+
+  // Nuxt plugins
+  plugins: [
+    '@/plugins/buefy.ts',
+  ],
+
+  // Styles
+  css: [
+    '@/assets/scss/main.scss',
+  ],
+  styleResources: {
+    scss: [
+      '@/assets/scss/_variables.scss',
+    ],
+  },
+
+  // Server configuration
   server: {
     port: nuxtPort,
   },
+
+  // Webpack configuration
   build: {
     extend (config: any, { isClient, isDev }: any) {
       if (isDev) {

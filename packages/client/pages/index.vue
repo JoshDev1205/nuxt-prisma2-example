@@ -1,8 +1,14 @@
 <template>
   <div id="app">
-    <h1>Nuxt.js / Prisma2</h1>
-    <Hello />
-    <Foo />
+    <section class="section">
+      <div class="container">
+        <h1 class="title">
+          Nuxt.js / Prisma2
+        </h1>
+        <Hello />
+        <Foo />
+      </div>
+    </section>
   </div>
 </template>
 
