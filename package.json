@@ -7,9 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "lerna run dev --stream",
-    "start": "lerna run start --stream",
-    "lint": "lerna run lint --stream"
+    "dev": "lerna run dev --stream --no-bail",
+    "start": "lerna run start --stream --no-bail",
+    "lint": "lerna run lint --stream --no-bail"
   },
   "dependencies": {
     "dotenv-extended": "^2.4.0",
