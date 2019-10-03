@@ -17,11 +17,12 @@ export default {
     },
   }),
   methods: {
-    login () {
-      this.$store
+    async login () {
+      await this.$store
         .dispatch('auth/login', this.form)
-        .then(() => this.$router.push('/'))
         .catch(error => console.error(error));
+
+      this.$router.replace(this.$route.query.redirect || '/');
     },
   },
 };

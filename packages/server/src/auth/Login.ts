@@ -41,7 +41,7 @@ export function applyMiddleware(router: Router): void {
       }
       updateAuthCookie(req, res, () => {
         if (user) {
-          res.json({ message: 'Login successful' });
+          res.json({ message: 'Login successful', user });
         } else {
           res.status(401).json({ message: info.message });
         }
