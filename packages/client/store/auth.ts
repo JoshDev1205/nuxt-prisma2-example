@@ -25,10 +25,8 @@ export const actions: ActionTree<AuthState, RootState> = {
   login (_store, { email, password }) {
     return this.$axios.post(authLoginPath, { email, password });
   },
-  logout ({ commit }) {
-    return this.$axios.post(authLogoutPath)
-      .then(() => {
-        commit('SET_USER', null);
-      });
+  async logout ({ commit }) {
+    await this.$axios.post(authLogoutPath);
+    commit('SET_USER', null);
   },
 };
