@@ -1,6 +1,7 @@
 import { Strategy } from 'passport-local';
-import { photon } from '..';
 import { Router } from 'express';
+import { photon } from '..';
+import { compare } from 'bcryptjs';
 import { json, urlencoded } from 'body-parser';
 import passport from 'passport';
 import { authLoginPath, updateAuthCookie } from './utils';
@@ -13,7 +14,7 @@ export const strategy = new Strategy({ usernameField: 'email' }, async (email, p
       return done(null, false, { message: 'User email not found' });
     }
     // Validate password
-    const valid = (password === user.password);
+    const valid = await compare(password, user.password);
     if (!valid) {
       return done(null, false, { message: 'Invalid password' });
     }
