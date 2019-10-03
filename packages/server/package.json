@@ -9,7 +9,9 @@
     "start": "yarn env ts-node --transpile-only src/index.ts",
     "lint": "eslint --ext .ts,.js --ignore-path ../../.gitignore --fix .",
     "generate": "yarn env prisma2 generate",
-    "lift": "yarn env prisma2 lift"
+    "postinstall": "yarn generate",
+    "lift": "yarn env prisma2 lift",
+    "seed": "yarn env ts-node --transpile-only prisma/seed.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
