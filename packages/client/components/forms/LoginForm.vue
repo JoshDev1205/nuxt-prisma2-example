@@ -1,35 +1,50 @@
 <template>
-  <form name="login" @submit.prevent="login">
-    <b-field label="E-mail">
-      <b-input v-model="form.email" type="email" />
-    </b-field>
-    <b-field label="Password">
-      <b-input v-model="form.password" type="password" />
-    </b-field>
-    <b-button type="is-primary" native-type="submit">
-      Login
-    </b-button>
-    <HomeButton class="is-pulled-right" />
-  </form>
+  <div class="login-form">
+    <ValidationObserver ref="observer" v-slot="{ invalid, passes }" slim>
+      <form @submit.prevent="passes(login)">
+        <ValidationProvider v-slot="{ errors, valid }" rules="required|email" name="Email">
+          <b-field label="Email" :type="{'is-danger': errors[0], 'is-success': valid}" :message="errors">
+            <b-input v-model="email" type="email" />
+          </b-field>
+        </ValidationProvider>
+        <ValidationProvider v-slot="{errors}" rules="required" name="Password">
+          <b-field label="Password" :type="{'is-danger': errors[0]}" :message="errors">
+            <b-input v-model="password" type="password" />
+          </b-field>
+        </ValidationProvider>
+        <b-button type="is-primary" native-type="submit" :disabled="invalid">Login</b-button>
+        <HomeButton class="is-pulled-right" />
+      </form>
+    </ValidationObserver>
+  </div>
 </template>
 
 <script>
-import HomeButton from '@/components/ui/HomeButton';
+import HomeButton from "@/components/ui/HomeButton";
 export default {
   components: { HomeButton },
   data: () => ({
-    form: {
-      email: '',
-      password: '',
-    },
+    email: "",
+    password: ""
   }),
   methods: {
-    async login () {
-      await this.$store
-        .dispatch('auth/login', this.form)
-        .catch(error => console.error(error));
-      this.$router.replace(this.$route.query.redirect || '/');
-    },
-  },
+    login() {
+      const vm = this;
+      this.$store
+        .dispatch("auth/login", {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          vm.$router.replace(this.$route.query.redirect || "/");
+        })
+        .catch(error => {
+          vm.$buefy.snackbar.open({
+            message: error.message,
+            type: "is-danger"
+          });
+        });
+    }
+  }
 };
 </script>

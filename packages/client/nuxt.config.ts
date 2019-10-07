@@ -30,6 +30,7 @@ const config: Configuration = {
   // Nuxt plugins
   plugins: [
     '@/plugins/buefy.ts',
+    '@/plugins/vee-validate.ts',
   ],
 
   // Styles
@@ -49,6 +50,9 @@ const config: Configuration = {
 
   // Webpack configuration
   build: {
+    transpile: [
+      'vee-validate/dist/rules',
+    ],
     extend (config: any, { isClient, isDev }: any) {
       if (isDev) {
         config.devtool = isClient ? 'source-map' : 'inline-source-map';

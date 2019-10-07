@@ -1,6 +1,7 @@
 import { ActionTree, MutationTree, GetterTree } from 'vuex';
 import { authLoginPath, authLogoutPath, getUserFromCookie } from '../../server/src/auth/utils';
 import { RootState } from './index';
+import '@nuxtjs/axios';
 
 export interface AuthState {
   user: Express.User | null;
@@ -22,8 +23,13 @@ export const actions: ActionTree<AuthState, RootState> = {
     commit('SET_USER', user);
   },
   async login ({ commit }, { email, password }) {
-    const { data } = await this.$axios.post(authLoginPath, { email, password });
+    const { data, status } = await this.$axios.post(authLoginPath, { email, password }, {
+      validateStatus: (status: number) => (status >= 200 && status < 500),
+    });
     commit('SET_USER', data.user || null);
+    if (status !== 200) {
+      throw new Error('Invalid email / password combination');
+    };
   },
   async logout ({ commit }) {
     await this.$axios.post(authLogoutPath);
