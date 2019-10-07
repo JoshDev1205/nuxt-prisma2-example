@@ -1,7 +1,6 @@
 import { ActionTree, MutationTree, GetterTree } from 'vuex';
 import { authLoginPath, authLogoutPath, getUserFromCookie } from '../../server/src/auth/utils';
 import { RootState } from './index';
-import '@nuxtjs/axios';
 
 export interface AuthState {
   user: Express.User | null;
