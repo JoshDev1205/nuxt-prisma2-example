@@ -1,15 +1,16 @@
 <template>
-  <div class="login">
-    <LoginForm />
-    <LogoutButton />
-  </div>
+  <section class="section">
+    <div class="container">
+      <LoginForm />
+    </div>
+  </section>
 </template>
 
 <script>
-import LoginForm from '@/components/LoginForm.vue';
-import LogoutButton from '@/components/LogoutButton.vue';
+import LoginForm from '@/components/LoginForm';
 export default {
-  components: { LoginForm, LogoutButton },
-  middleware: ['isAnonymous'],
+  layout: 'blank',
+  components: { LoginForm },
+  middleware: [ 'isAnonymous' ],
 };
 </script>
