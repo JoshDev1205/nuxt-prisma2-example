@@ -1,20 +1,12 @@
 <template>
-  <div class="home">
-    <section class="section">
-      <div class="container">
-        <h1 class="title">
-          Nuxt.js / Prisma2
-        </h1>
-        <Hello />
-      </div>
-    </section>
+  <div>
+    <Home />
   </div>
 </template>
 
 <script>
-import Hello from '@/components/Hello.vue';
-
+import Home from '@/components/sections/Home';
 export default {
-  components: { Hello },
+  components: { Home },
 };
 </script>

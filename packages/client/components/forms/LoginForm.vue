@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import HomeButton from '@/components/HomeButton';
+import HomeButton from '@/components/ui/HomeButton';
 export default {
   components: { HomeButton },
   data: () => ({
