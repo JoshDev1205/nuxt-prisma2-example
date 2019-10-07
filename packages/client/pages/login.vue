@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div class="login">
     <LoginForm />
     <LogoutButton />
   </div>

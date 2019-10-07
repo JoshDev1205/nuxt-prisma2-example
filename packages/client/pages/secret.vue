@@ -1,5 +1,5 @@
 <template>
-  <div id="secret">
+  <div class="secret">
     Yo
   </div>
 </template>
