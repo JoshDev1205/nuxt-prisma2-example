@@ -10,6 +10,7 @@ export const authJwtSecret = process.env.AUTH_JWT_SECRET || 'nuxt-prisma2-secret
 export const authJwtPath = /^\/(?!_|favicon.ico).*/;
 export const authLoginPath = '/auth/login';
 export const authLogoutPath = '/auth/logout';
+export const authSignupPath = '/auth/signup';
 
 // Decode JWT
 export function decodeJwt(token: string): Express.User | null {

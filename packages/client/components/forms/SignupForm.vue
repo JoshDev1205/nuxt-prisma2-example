@@ -1,7 +1,7 @@
 <template>
-  <div class="login-form">
+  <div class="signup-form">
     <ValidationObserver ref="observer" v-slot="{ invalid, passes }" slim>
-      <form @submit.prevent="passes(login)">
+      <form @submit.prevent="passes(signup)">
         <ValidationProvider v-slot="{ errors, valid }" rules="required|email" name="Email">
           <b-field label="Email" :type="{'is-danger': errors[0], 'is-success': valid}" :message="errors">
             <b-input v-model="email" type="email" />
@@ -13,7 +13,7 @@
           </b-field>
         </ValidationProvider>
         <b-button type="is-primary" native-type="submit" :disabled="invalid">
-          Log in
+          Sign up
         </b-button>
         <HomeButton class="is-pulled-right" />
       </form>
@@ -30,10 +30,10 @@ export default {
     password: '',
   }),
   methods: {
-    login () {
+    signup () {
       const vm = this;
       this.$store
-        .dispatch('auth/login', {
+        .dispatch('auth/signup', {
           email: this.email,
           password: this.password,
         })

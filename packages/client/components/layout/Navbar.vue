@@ -3,7 +3,10 @@
     <template slot="end">
       <b-navbar-item tag="div">
         <LogoutButton v-if="$store.getters['auth/isAuthenticated']" />
-        <LoginButton v-else />
+        <div v-else>
+          <LoginButton />
+          <SignupButton />
+        </div>
       </b-navbar-item>
     </template>
   </b-navbar>
@@ -12,9 +15,12 @@
 <script>
 import LoginButton from '@/components/ui/LoginButton';
 import LogoutButton from '@/components/ui/LogoutButton';
+import SignupButton from '@/components/ui/SignupButton';
 export default {
   components: {
-    LoginButton, LogoutButton,
+    LoginButton,
+    LogoutButton,
+    SignupButton,
   },
 };
 </script>

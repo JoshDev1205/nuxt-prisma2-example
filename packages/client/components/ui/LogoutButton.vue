@@ -1,6 +1,6 @@
 <template>
   <b-button type="is-light" @click="logout">
-    Logout
+    Log out
   </b-button>
 </template>
 

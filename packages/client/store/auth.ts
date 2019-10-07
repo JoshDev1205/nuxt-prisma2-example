@@ -1,5 +1,5 @@
 import { ActionTree, MutationTree, GetterTree } from 'vuex';
-import { authLoginPath, authLogoutPath, getUserFromCookie } from '../../server/src/auth/utils';
+import { authLoginPath, authLogoutPath, authSignupPath, getUserFromCookie } from '../../server/src/auth/utils';
 import { RootState } from './index';
 
 export interface AuthState {
@@ -33,6 +33,15 @@ export const actions: ActionTree<AuthState, RootState> = {
   async logout ({ commit }) {
     await this.$axios.post(authLogoutPath);
     commit('SET_USER', null);
+  },
+  async signup ({ commit }, { email, password }) {
+    const { data, status } = await this.$axios.post(authSignupPath, { email, password }, {
+      validateStatus: (status: number) => (status >= 200 && status < 500),
+    });
+    commit('SET_USER', data.user || null);
+    if (status !== 200) {
+      throw new Error('Could not signup user');
+    };
   },
 };
 
