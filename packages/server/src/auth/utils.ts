@@ -11,6 +11,7 @@ export const authJwtPath = /^\/(?!_|favicon.ico).*/;
 export const authLoginPath = '/auth/login';
 export const authLogoutPath = '/auth/logout';
 export const authSignupPath = '/auth/signup';
+export const authGitHubPath = '/auth/github';
 
 // Decode JWT
 export function decodeJwt(token: string): Express.User | null {

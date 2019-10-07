@@ -22,6 +22,7 @@
     "jsonwebtoken": "^8.5.1",
     "nexus": "^0.12.0-beta.9",
     "passport": "^0.4.0",
+    "passport-github": "^1.1.0",
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
@@ -30,6 +31,7 @@
     "@types/jsonwebtoken": "^8.3.4",
     "@types/node": "^10",
     "@types/passport": "^1.0.1",
+    "@types/passport-github": "^1.1.5",
     "@types/passport-local": "^1.0.33",
     "@typescript-eslint/eslint-plugin": "^2.3.2",
     "@typescript-eslint/parser": "^2.3.2",
