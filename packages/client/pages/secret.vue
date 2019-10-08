@@ -1,11 +1,17 @@
 <template>
   <div class="secret">
-    Yo
+    <section class="section">
+      <div class="container">
+        <GitHubButton />
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
+import GitHubButton from "@/components/ui/GitHubButton";
 export default {
-  middleware: ['isAuthenticated'],
+  components: { GitHubButton },
+  middleware: ["isAuthenticated"]
 };
 </script>

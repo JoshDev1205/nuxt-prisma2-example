@@ -15,6 +15,7 @@
         <b-button type="is-primary" native-type="submit" :disabled="invalid">
           Log in
         </b-button>
+        <GitHubButton />
         <HomeButton class="is-pulled-right" />
       </form>
     </ValidationObserver>
@@ -22,9 +23,10 @@
 </template>
 
 <script>
+import GitHubButton from '@/components/ui/GitHubButton';
 import HomeButton from '@/components/ui/HomeButton';
 export default {
-  components: { HomeButton },
+  components: { GitHubButton, HomeButton },
   data: () => ({
     email: '',
     password: '',
