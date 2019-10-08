@@ -16,6 +16,7 @@ async function githubFindOrCreateUser(profile: passport.Profile): Promise<User |
   // Find existing user from profile.id
   user = await photon.users.findOne({ where: { githubProfileId: profile.id } }).catch(() => { });
   if (user) {
+    delete user.password;
     return user;
   }
 
@@ -30,7 +31,12 @@ async function githubFindOrCreateUser(profile: passport.Profile): Promise<User |
     where: { email },
     create: { email, githubProfileId: profile.id },
     update: { githubProfileId: profile.id },
-  }).catch(() => { return null; });
+  })
+    .then((user) => {
+      delete user.password;
+      return user;
+    })
+    .catch(() => { return null; });
 }
 
 export const strategy = new GitHubStrategy({
@@ -38,13 +44,21 @@ export const strategy = new GitHubStrategy({
   clientSecret,
   callbackURL,
   scope: 'user:email',
-}, async (_accessToken, _refreshToken, profile, done): Promise<void> => {
+  passReqToCallback: true,
+}, async (req, _accessToken, _refreshToken, profile, done): Promise<void> => {
   try {
-    // Find or create user from GitHub profile
-    const user = await githubFindOrCreateUser(profile);
+    // Link authenticated user
+    let user = req.user || null;
     if (user) {
-      // Return user without password
-      delete user.password;
+      user = await photon.users.update({
+        where: { id: user.id },
+        data: { githubProfileId: profile.id },
+      });
+    } else {
+      // Find or create user from GitHub profile
+      user = await githubFindOrCreateUser(profile);
+    }
+    if (user) {
       return done(null, user);
     }
   } catch (error) {
@@ -69,7 +83,7 @@ export function applyMiddleware(router: Router): void {
       } else {
         req.logout();
       }
-      
+
       // Determine redirect URL
       let url = '/';
       const { state } = req.query;
