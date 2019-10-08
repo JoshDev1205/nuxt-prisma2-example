@@ -3,11 +3,35 @@ import { Router } from 'express';
 import { photon } from '..';
 import passport from 'passport';
 import { authGitHubPath, updateAuthCookie } from './utils';
+import { User } from '@generated/photon';
 
 const serverPort = process.env.SERVER_PORT || 4000;
 const clientID = process.env.AUTH_GITHUB_CLIENT_ID || '';
 const clientSecret = process.env.AUTH_GITHUB_CLIENT_SECRET || '';
 const callbackURL = `http://localhost:${serverPort}${authGitHubPath}/callback`;
+
+async function githubFindOrCreateUser(profile: passport.Profile): Promise<User | null> {
+  let user = null;
+
+  // Find existing user from profile.id
+  user = await photon.users.findOne({ where: { githubProfileId: profile.id } }).catch(() => { });
+  if (user) {
+    return user;
+  }
+
+  // Determine user email
+  const email = (profile.emails && profile.emails[0].value) || null;
+  if (!email) {
+    return null;
+  }
+
+  // Find or create user
+  return await photon.users.upsert({
+    where: { email },
+    create: { email, githubProfileId: profile.id },
+    update: { githubProfileId: profile.id },
+  }).catch(() => { return null; });
+}
 
 export const strategy = new GitHubStrategy({
   clientID,
@@ -16,13 +40,13 @@ export const strategy = new GitHubStrategy({
   scope: 'user:email',
 }, async (_accessToken, _refreshToken, profile, done): Promise<void> => {
   try {
-    // Find user by email
-    // TODO: Find by { githubId: profile.id }
-    const email = (profile.emails && profile.emails[0].value) || '';
-    const user = await photon.users.findOne({ where: { email } });
-    // Return user without password
-    delete user.password;
-    return done(null, user);
+    // Find or create user from GitHub profile
+    const user = await githubFindOrCreateUser(profile);
+    if (user) {
+      // Return user without password
+      delete user.password;
+      return done(null, user);
+    }
   } catch (error) {
     return done(null, undefined, { message: error.message });
   }
@@ -33,7 +57,7 @@ export function applyMiddleware(router: Router): void {
     passport.authenticate('github', { session: false })
   );
   router.get(`${authGitHubPath}/callback`,
-    (req, res, next) => passport.authenticate('github', { failureRedirect: '/', session: false }, async (error, user, info) => {
+    (req, res, next) => passport.authenticate('github', { failureRedirect: '/', session: false }, async (error, user) => {
       if (error) {
         return next(error);
       }
