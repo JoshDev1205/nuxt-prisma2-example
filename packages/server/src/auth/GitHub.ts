@@ -53,9 +53,12 @@ export const strategy = new GitHubStrategy({
 });
 
 export function applyMiddleware(router: Router): void {
-  router.get(authGitHubPath,
-    passport.authenticate('github', { session: false })
-  );
+  router.get(authGitHubPath, (req, res, next) => {
+    const { redirect } = req.query;
+    const state = redirect ? Buffer.from(JSON.stringify({ redirect })).toString('base64') : undefined;
+    const authenticator = passport.authenticate('github', { session: false, state });
+    authenticator(req, res, next);
+  });
   router.get(`${authGitHubPath}/callback`,
     (req, res, next) => passport.authenticate('github', { failureRedirect: '/', session: false }, async (error, user) => {
       if (error) {
@@ -66,7 +69,21 @@ export function applyMiddleware(router: Router): void {
       } else {
         req.logout();
       }
-      updateAuthCookie(req, res, () => res.redirect('/'));
+      
+      // Determine redirect URL
+      let url = '/';
+      const { state } = req.query;
+      try {
+        const { redirect } = JSON.parse(Buffer.from(state, 'base64').toString());
+        if (typeof redirect === 'string' && redirect.startsWith('/')) {
+          url = redirect;
+        }
+      } catch { }
+
+      // Update authentication cookie and redirect
+      updateAuthCookie(req, res, () => {
+        res.redirect(url);
+      });
     })(req, res, next)
   );
 };

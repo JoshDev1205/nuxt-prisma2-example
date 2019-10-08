@@ -15,7 +15,7 @@
         <b-button type="is-primary" native-type="submit" :disabled="invalid">
           Log in
         </b-button>
-        <GitHubButton />
+        <GitHubButton :redirect="$route.query.redirect" />
         <HomeButton class="is-pulled-right" />
       </form>
     </ValidationObserver>
