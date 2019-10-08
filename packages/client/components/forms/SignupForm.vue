@@ -24,6 +24,9 @@
 <script>
 import HomeButton from '@/components/ui/HomeButton';
 export default {
+  props: {
+    redirect: String
+  },
   components: { HomeButton },
   data: () => ({
     email: '',
@@ -38,7 +41,7 @@ export default {
           password: this.password,
         })
         .then(() => {
-          vm.$router.replace(this.$route.query.redirect || '/');
+          vm.$router.replace(this.redirect || '/');
         })
         .catch((error) => {
           vm.$buefy.snackbar.open({

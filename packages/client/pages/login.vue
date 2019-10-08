@@ -1,7 +1,7 @@
 <template>
   <section class="section">
     <div class="container">
-      <LoginForm />
+      <LoginForm :redirect="$route.query.redirect" />
     </div>
   </section>
 </template>

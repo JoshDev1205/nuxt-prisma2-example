@@ -26,6 +26,9 @@
 import GitHubButton from '@/components/ui/GitHubButton';
 import HomeButton from '@/components/ui/HomeButton';
 export default {
+  props: {
+    redirect: String
+  },
   components: { GitHubButton, HomeButton },
   data: () => ({
     email: '',
@@ -40,7 +43,7 @@ export default {
           password: this.password,
         })
         .then(() => {
-          vm.$router.replace(this.$route.query.redirect || '/');
+          vm.$router.replace(this.redirect || '/');
         })
         .catch((error) => {
           vm.$buefy.snackbar.open({
