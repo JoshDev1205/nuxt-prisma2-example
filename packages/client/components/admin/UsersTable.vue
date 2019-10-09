@@ -3,7 +3,7 @@
     <template slot-scope="props">
       <b-table-column field="email" label="Email">{{ props.row.email}}</b-table-column>
       <b-table-column>
-        <b-button @click="deleteUser(props.row.id)">
+        <b-button @click="deleteUser(props.row)">
           <b-icon icon="delete" />
         </b-button>
       </b-table-column>
@@ -32,35 +32,40 @@ export default {
     }
   },
   methods: {
-    deleteUser(id) {
-      this.$apollo
-        .mutate({
-          mutation: deleteOneUser,
-          variables: {
-            id
-          },
-          update: (store, result) => {
-            const data = store.readQuery({
-              query: users
-            });
-            const index = data.users.findIndex(
-              user => user.id === result.data.deleteOneUser.id
-            );
-            if (index !== -1) {
-              data.users.splice(index, 1);
-              store.writeQuery({
-                query: users,
-                data
+    deleteUser(row) {
+      this.$buefy.dialog.confirm({
+        message: `Delete user ${row.email} ?`,
+        type: 'is-danger',
+        onConfirm: () =>
+          this.$apollo
+            .mutate({
+              mutation: deleteOneUser,
+              variables: {
+                id: row.id
+              },
+              update: (store, result) => {
+                const data = store.readQuery({
+                  query: users
+                });
+                const index = data.users.findIndex(
+                  user => user.id === result.data.deleteOneUser.id
+                );
+                if (index !== -1) {
+                  data.users.splice(index, 1);
+                  store.writeQuery({
+                    query: users,
+                    data
+                  });
+                }
+              }
+            })
+            .then(result => {
+              this.$buefy.snackbar.open({
+                message: `Deleted user ${row.email}`,
+                type: "is-danger"
               });
-            }
-          }
-        })
-        .then(result => {
-          this.$buefy.snackbar.open({
-            message: `Deleted user ${id}`,
-            type: "is-danger"
-          });
-        });
+            })
+      });
     }
   }
 };
