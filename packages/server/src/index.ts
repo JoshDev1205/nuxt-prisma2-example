@@ -2,18 +2,11 @@ import { GraphQLServer } from 'graphql-yoga';
 import { schema } from './schema';
 import { permissions } from "./shield/permissions";
 import { ApolloContext } from './types';
-import { Photon } from '@generated/photon';
-import { PubSub } from 'graphql-subscriptions';
+import { photon, pubsub } from './lib';
 import { router as authRouter } from './auth';
 import proxy from 'http-proxy-middleware';
 import { getUserFromCookie } from './auth/utils';
 import { ConnectionParams, ConnectionContext } from 'subscriptions-transport-ws';
-
-// Prisma2 Photon client
-export const photon = new Photon;
-
-// PubSub instance
-export const pubsub = new PubSub;
 
 // GraphQL Server
 const server = new GraphQLServer({

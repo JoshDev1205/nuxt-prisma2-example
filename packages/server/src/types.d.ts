@@ -15,3 +15,7 @@ declare global {
     }
   }
 }
+
+export interface Seed {
+  main(): Promise<void>;
+}

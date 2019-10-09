@@ -11,7 +11,7 @@
     "generate": "yarn env prisma2 generate",
     "postinstall": "yarn generate",
     "lift": "yarn env prisma2 lift",
-    "seed": "yarn env ts-node --transpile-only prisma/seed.ts"
+    "seed": "yarn env ts-node --transpile-only src/seed.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
