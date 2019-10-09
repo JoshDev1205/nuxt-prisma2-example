@@ -13,10 +13,10 @@
 </template>
 
 <script>
-import LoginForm from "~/components/forms/LoginForm";
+import LoginForm from '~/components/forms/LoginForm';
 export default {
-  layout: "blank",
+  layout: 'blank',
   components: { LoginForm },
-  middleware: ["isAnonymous"]
+  middleware: [ 'isAnonymous' ],
 };
 </script>

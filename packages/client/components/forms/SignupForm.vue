@@ -17,10 +17,12 @@
               <b-input v-model="password" type="password" />
             </b-field>
           </ValidationProvider>
-          <hr />
+          <hr>
           <div class="field is-grouped">
             <div class="control">
-              <b-button type="is-primary" native-type="submit" :disabled="invalid">Sign up</b-button>
+              <b-button type="is-primary" native-type="submit" :disabled="invalid">
+                Sign up
+              </b-button>
             </div>
             <div class="control">
               <HomeButton />
@@ -33,34 +35,37 @@
 </template>
 
 <script>
-import HomeButton from "@/components/ui/HomeButton";
+import HomeButton from '@/components/ui/HomeButton';
 export default {
   components: { HomeButton },
   props: {
-    redirect: String
+    redirect: {
+      type: String,
+      default: '/',
+    },
   },
   data: () => ({
-    email: "",
-    password: ""
+    email: '',
+    password: '',
   }),
   methods: {
-    signup() {
+    signup () {
       const vm = this;
       this.$store
-        .dispatch("auth/signup", {
+        .dispatch('auth/signup', {
           email: this.email,
-          password: this.password
+          password: this.password,
         })
         .then(() => {
-          vm.$router.replace(this.redirect || "/");
+          vm.$router.replace(this.redirect || '/');
         })
-        .catch(error => {
+        .catch((error) => {
           vm.$buefy.snackbar.open({
             message: error.message,
-            type: "is-danger"
+            type: 'is-danger',
           });
         });
-    }
-  }
+    },
+  },
 };
 </script>

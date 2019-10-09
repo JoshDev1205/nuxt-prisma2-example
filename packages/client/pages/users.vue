@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import UsersTable from "@/components/admin/UsersTable";
+import UsersTable from '@/components/admin/UsersTable';
 export default {
-  components: { UsersTable }
+  components: { UsersTable },
 };
 </script>

@@ -8,7 +8,10 @@
 import { authGitHubPath } from '../../../server/src/auth/utils';
 export default {
   props: {
-    redirect: String,
+    redirect: {
+      type: String,
+      default: '/',
+    },
   },
   computed: {
     authUrl () {
