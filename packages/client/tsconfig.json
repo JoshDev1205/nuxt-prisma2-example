@@ -29,6 +29,6 @@
     ]
   },
   "include": [
-    "../server/src/types.d.ts"
+    "../server/src/auth/types.d.ts"
   ]
 }
