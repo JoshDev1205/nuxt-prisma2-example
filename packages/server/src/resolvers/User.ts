@@ -4,7 +4,7 @@ export const User = objectType({
   name: 'User',
   definition: function (t) {
     t.model.id();
-    t.model.role();
+    t.model.roles();
     t.model.email();
     t.model.firstName();
     t.model.lastName();
