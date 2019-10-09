@@ -28,10 +28,11 @@ export const actions: ActionTree<AuthState, RootState> = {
     commit('SET_USER', data.user || null);
     if (status !== 200) {
       throw new Error('Invalid email / password combination');
-    };
+    }
   },
   async logout ({ commit }) {
     await this.$axios.post(authLogoutPath);
+    this.app.apolloProvider.defaultClient.resetStore();
     commit('SET_USER', null);
   },
   async signup ({ commit }, { email, password }) {
@@ -41,7 +42,7 @@ export const actions: ActionTree<AuthState, RootState> = {
     commit('SET_USER', data.user || null);
     if (status !== 200) {
       throw new Error('Could not signup user');
-    };
+    }
   },
 };
 
