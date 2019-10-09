@@ -2,9 +2,12 @@ import { objectType, extendType } from "nexus";
 
 export const User = objectType({
   name: 'User',
-  definition(t) {
+  definition: function (t) {
     t.model.id();
+    t.model.role();
     t.model.email();
+    t.model.firstName();
+    t.model.lastName();
     t.model.githubProfileId();
   },
 });
@@ -13,7 +16,7 @@ export const UserQuery = extendType({
   type: 'Query',
   definition(t) {
     t.crud.user();
-    t.crud.users();
+    t.crud.users({ filtering: true, ordering: true, pagination: false });
   },
 });
 

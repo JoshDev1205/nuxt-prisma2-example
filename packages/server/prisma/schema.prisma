@@ -6,15 +6,21 @@ datasource db {
 
 generator photonjs {
   provider = "photonjs"
+  output   = "../../node_modules/@generated/photon"
 }
 
-generator nexus_prisma {
-  provider = "nexus-prisma"
+enum Role {
+  USER
+  EDITOR
+  ADMINISTRATOR
 }
 
 model User {
   id              String  @default(cuid()) @id
+  role            Role    @default(USER)
   email           String  @unique
   password        String?
+  firstName       String?
+  lastName        String?
   githubProfileId String? @unique
 }

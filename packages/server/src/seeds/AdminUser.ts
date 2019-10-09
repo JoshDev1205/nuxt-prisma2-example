@@ -11,8 +11,8 @@ export const seedAdminUser: Seed = {
     // Upsert administrator user
     await photon.users.upsert({
       where: { email },
-      create: { email, password: passwordHash },
-      update: { email, password: passwordHash },
+      create: { email, role: 'ADMINISTRATOR', password: passwordHash },
+      update: { email, role: 'ADMINISTRATOR', password: passwordHash },
     });
 
     console.log(`ℹ Upserted administrator user (${email} / ${password})`);
