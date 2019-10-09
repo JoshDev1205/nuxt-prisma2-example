@@ -1,5 +1,5 @@
 import { subscriptionField } from 'nexus';
-import { pubsub } from '..';
+import { pubsub } from '../lib';
 
 export const fooTrigger = 'FOO';
 

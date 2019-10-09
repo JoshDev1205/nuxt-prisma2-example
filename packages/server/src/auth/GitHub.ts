@@ -1,6 +1,6 @@
 import { Strategy as GitHubStrategy } from 'passport-github';
 import { Router } from 'express';
-import { photon } from '..';
+import { photon } from '../lib';
 import passport from 'passport';
 import { authGitHubPath, updateAuthCookie } from './utils';
 import { User } from '@generated/photon';

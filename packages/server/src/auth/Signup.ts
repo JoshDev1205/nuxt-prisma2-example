@@ -1,6 +1,6 @@
 import { Strategy } from 'passport-local';
 import { Router } from 'express';
-import { photon } from '..';
+import { photon } from '../lib';
 import { hashSync } from 'bcryptjs';
 import { json, urlencoded } from 'body-parser';
 import passport from 'passport';
