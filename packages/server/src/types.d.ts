@@ -6,16 +6,3 @@ export interface ApolloContext {
   pubsub: PubSub;
   user: Express.User | null;
 }
-
-declare global {
-  namespace Express {
-    interface User {
-      id: string;
-      email: string;
-    }
-  }
-}
-
-export interface Seed {
-  main(): Promise<void>;
-}

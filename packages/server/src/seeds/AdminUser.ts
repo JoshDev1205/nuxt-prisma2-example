@@ -1,4 +1,4 @@
-import { Seed } from '../types';
+import { Seed } from './types';
 import { photon } from '../lib';
 import { hash } from 'bcryptjs';
 
