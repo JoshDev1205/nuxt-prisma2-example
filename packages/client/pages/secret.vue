@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import GitHubButton from "@/components/ui/GitHubButton";
+import GitHubButton from '@/components/ui/GitHubButton';
 export default {
   components: { GitHubButton },
-  middleware: ["isAuthenticated"]
+  middleware: ['isAuthenticated'],
 };
 </script>
