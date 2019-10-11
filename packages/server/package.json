@@ -38,6 +38,6 @@
     "@typescript-eslint/parser": "^2.3.3",
     "prisma2": "^2.0.0-preview-13.3",
     "ts-node-dev": "^1.0.0-pre.43",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.4"
   }
 }
